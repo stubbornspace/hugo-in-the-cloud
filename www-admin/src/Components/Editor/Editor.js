@@ -1,21 +1,34 @@
 import React from 'react';
+import MdEditor from 'react-markdown-editor-lite'
+import 'react-markdown-editor-lite/lib/index.css';
+
+
+function handleEditorChange({text}) {    
+    console.log(text)
+  }
 
 class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.getMarkdown = this.getMarkdown.bind(this);
+      }
+
+      getMarkdown = () => {
+        if (this.mdEditor) {
+          alert(this.mdEditor.getMdValue());
+        }
+      };
  
-      render() {    
+      render() { 
         
         return (
             <div>
-                THIS WILL BE THE EDITOR
+                <button onClick={this.getMarkdown}>Save</button>
 
-                Create and Edit point here
-
-                summary section
-                Editor 
-                image upload
-                draft
-                publish 
-                delete
+                <MdEditor
+                    value=""
+                    onChange={handleEditorChange}
+                />
             
 
             </div>
