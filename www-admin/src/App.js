@@ -20,9 +20,9 @@ class App extends React.Component {
   render() {    
     
     return (
-      <div>
+      <div className="wrapper">
         <Router>
-
+      
           <Navbar expand="lg" variant="light" bg="light">
           <Navbar.Brand href="#home">
             <img
@@ -34,6 +34,8 @@ class App extends React.Component {
             />{' '}
             FoodFunk
           </Navbar.Brand>
+            <Navbar.Toggle aria-controls="top-nav" />
+            <Navbar.Collapse id="top-nav">
             <Nav className="mr-auto">
               <Nav.Item>
                 <Link to= {{ pathname:"/"}} className="nav-link">
@@ -46,6 +48,7 @@ class App extends React.Component {
                 </Link>
               </Nav.Item>
             </Nav>
+             </Navbar.Collapse>
           </Navbar>
 
           <div className="main">
@@ -55,7 +58,7 @@ class App extends React.Component {
               <Route path="/edit" component={Editor} />
               <Route component={this.noMatch} />
             </Switch>
-            </div>
+          </div>
 
           </Router>
         </div>

@@ -12,9 +12,20 @@ code {
     monospace;
 }
 
-.main {
-  margin: 2rem auto;
-  padding:1rem;
+.wrapper {
+  margin: 0 auto;
   width: 90%;
   max-width: 1080px;
+}
+
+.main {
+  margin-top: 2rem;
+  padding:1rem;
+}
+
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+  }
 }
