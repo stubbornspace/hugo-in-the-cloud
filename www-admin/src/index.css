@@ -15,13 +15,28 @@ code {
 .wrapper {
   margin: 0 auto;
   width: 90%;
-  max-width: 1080px;
+  max-width: 920px;
 }
 
 .main {
-  margin-top: 2rem;
-  padding:1rem;
+  padding: 1rem;
 }
+
+.tools {
+  float:right;
+}
+
+.editor {
+  padding-top: 2rem;
+}
+
+.dash {
+  padding-top: 2rem;
+}
+
+.bg-light {
+  background-color: #fff !important;
+} 
 
 
 @media screen and (max-width: 768px) {

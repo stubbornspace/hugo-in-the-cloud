@@ -1,9 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navbar, Nav } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import Dashboard from './Components/Dashboard/Dashboard';
 import Editor from './Components/Editor/Editor';
+
 
 class App extends React.Component {
 
@@ -17,40 +18,26 @@ class App extends React.Component {
     );
   }
  
-  render() {    
+  render() {   
     
     return (
+
       <div className="wrapper">
         <Router>
-      
-          <Navbar expand="lg" variant="light" bg="light">
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src="./logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            FoodFunk
-          </Navbar.Brand>
-            <Navbar.Toggle aria-controls="top-nav" />
-            <Navbar.Collapse id="top-nav">
-            <Nav className="mr-auto">
-              <Nav.Item>
-                <Link to= {{ pathname:"/"}} className="nav-link">
-                  Dashboard
-                </Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Link to= {{ pathname:"/create"}} className="nav-link">
-                  New Post
-                </Link>
-              </Nav.Item>
-            </Nav>
-             </Navbar.Collapse>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">FoodFunk</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/">Dashboard</Nav.Link>
+                <Nav.Link href="/create">New</Nav.Link>
+                <Nav.Link href="#link">Preview</Nav.Link>
+              </Nav>
+              <Nav className="ml-auto">
+              <Nav.Link href="#link">Logout</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
           </Navbar>
-
           <div className="main">
             <Switch>
               <Route path="/" exact component={Dashboard} />
@@ -59,9 +46,8 @@ class App extends React.Component {
               <Route component={this.noMatch} />
             </Switch>
           </div>
-
-          </Router>
-        </div>
+        </Router>
+      </div>
     )
   }
 
