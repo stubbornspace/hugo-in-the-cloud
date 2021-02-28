@@ -1,0 +1,25 @@
+{
+  "name": "hugo-lambda",
+  "version": "1.0.0",
+  "description": "run hugo executable on lambda with content stored in s3",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "bin": "bin"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Stubborn"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.853.0",
+    "fs-path": "0.0.25",
+    "mime-types": "^2.1.21",
+    "util": "^0.11.1"
+  }
+}
