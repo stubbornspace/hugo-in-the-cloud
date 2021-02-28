@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
-container {
-  padding-top: 4rem;;
+.bg-light {
+  background-color: #fff !important;
+} 
+
+.wrapper {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 860px;
+}
+
+.main {
+  padding: 1rem;
 }
