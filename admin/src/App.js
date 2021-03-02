@@ -2,17 +2,18 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
+import Dashboard from './Views/Dashboard';
+import Editor from './Views/Editor';
+
+/**
+ * logout
+ */
 
 function App() {
-
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
-
-  const toggle = () => setDropdownOpen(!dropdownOpen);
 
   return (
     <Router>
@@ -21,22 +22,20 @@ function App() {
         <Navbar bg="light" expand="lg">
           <Navbar.Brand href="/">FoodFunk</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link href="/logout">Logout</Nav.Link>
+          <Nav.Link href="/">home</Nav.Link>
+            <Nav.Link href="/editor/<filename>.md">new</Nav.Link>
+            <Nav.Link href="/logout">logout</Nav.Link>
           </Nav>
+          </Navbar.Collapse>
         </Navbar>
 
         <div className="main">
         <Switch>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route path="/logout">
-            <Logout />
-          </Route>
-          <Route path="/editor">
-            <Editor />
-          </Route>
+          <Route exact path="/"><Dashboard /></Route>
+          <Route path="/logout"><Logout /></Route>
+          <Route path={"/editor/:file"}><Editor /></Route>
         </Switch>
         </div>
 
@@ -49,26 +48,10 @@ function App() {
 export default App;
 
 
-function Editor() {
-  return (
-    <div>
-      <h2>Editor</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
-  );
-}
-
 function Logout() {
   return (
     <div>
-      <h2>Logout</h2>
+      Logout
     </div>
   );
 }

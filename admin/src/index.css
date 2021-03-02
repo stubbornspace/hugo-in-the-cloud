@@ -16,6 +16,23 @@ code {
   background-color: #fff !important;
 } 
 
+a {
+  color: darkcyan;
+}
+a:hover {
+  color:slategray;
+}
+
+.btn-link,.nav-link,.navbar-brand {
+  color: darkcyan !important;
+}
+
+.btn-link:hover,.nav-link:hover, .navbar-brand:hover {
+  color:slategray !important;
+}
+
+
+
 .wrapper {
   margin: 0 auto;
   width: 90%;
@@ -23,5 +40,27 @@ code {
 }
 
 .main {
-  padding: 1rem;
+  padding: 3rem 1rem 3rem 1rem;
+}
+
+.tools {
+  text-align: right;
+}
+
+ .tools span, a {
+  padding: 0 1rem 0 1rem;
+}
+.tools span {
+  font-size: small;
+}
+
+.del {
+  color: crimson;
+}
+
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+  }
 }
