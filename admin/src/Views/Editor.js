@@ -1,28 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { Row, Col, ButtonGroup, Button, InputGroup, FormControl } from 'react-bootstrap';
 import MDEditor from '@uiw/react-md-editor';
+import { Storage } from 'aws-amplify';
 
-/**
- * get file body
- * save file
- */
+Storage.configure({
+  level: 'public',
+  customPrefix: {
+      public: 'hugo/'
+  }
+})
 
-const data = {
-  Body:'foo  foo'
-
-}
-
-function Editor() {
+const Editor = () => {
 
   const { file } = useParams();
-  const [fileName, setFileName] = useState(data.Key);
-  const [markdown, setMarkdown] = useState(data.Body);
+  const [fileName, setFileName] = useState(file);
+  const [markdown, setMarkdown] = useState('');
 
-  
-  const saveFile = () => {
-    console.log(fileName)
+  const getFile = async () => {
+    try {
+      const data = await Storage.get(`content/posts/${file}`, { download: true });
+      setMarkdown(data.Body.toString())
+    } catch (err) {
+      console.log(err)
+    }
   }
+
+  const saveFile = async () => {
+    try {
+      const data = await Storage.put(`content/posts/${file}`, markdown, {
+        level: 'public',
+        contentType: 'text/plain'
+      });
+      alert('file saved')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    getFile()
+  },[])
  
   return (
     <div>
@@ -47,6 +65,8 @@ function Editor() {
       <MDEditor
         value={markdown}
         onChange={setMarkdown}
+        autoFocus={false}
+        height={600}
       />
 
     </div>

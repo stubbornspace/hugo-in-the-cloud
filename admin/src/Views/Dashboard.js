@@ -1,43 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ListGroup, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { Storage } from 'aws-amplify';
 
+Storage.configure({
+  level: 'public',
+  customPrefix: {
+      public: 'hugo/'
+  }
+})
 /**
  * get file list
  * delete file (modal) > confirm > delete >refresh
  */
+const deleteFile = () => {
+  alert('del')
+}
 
-const files = [
-  {
-    Key: "Super-Fried-Chicken.md",
-    LastModified: "12-2-2017",
-  },
-  {
-    Key: "Fish-and-chips.md",
-    LastModified: "12-2-2017",
-  },
-  {
-    Key: "Bang-Bang-Chicken.md",
-    LastModified: "12-2-2017",
+const Dashboard = () => {
+
+  const [files, setFiles] = useState([])
+
+  const getFiles = async () => {
+    try {
+      const data = await Storage.list('content/posts/');
+      data.forEach(obj => {
+        obj.key = obj.key.split('/').pop()
+      })
+      setFiles(data)
+    } catch (err) {
+      console.log(err)
+    }
   }
-];
 
-function Dashboard() {
+  useEffect(() => {
+    getFiles()
+  },[])
 
-  function deleteFile() {
-    alert('del')
-  }
-  const fileList = files.map((f) =>
-    <ListGroup.Item key={f.Key}>
+  const fileList = files.map((file) =>
+    <ListGroup.Item key={file.eTag}>
       <Row>
-        <Col>{f.Key}</Col>
+        <Col>{file.key}</Col>
         <Col className="tools">
-          <span>{f.LastModified}</span> |
-          <Link to={"/editor/"+f.Key}><FontAwesomeIcon size="sm" icon={faEdit} /></Link>
+          <Link to={"/editor/" + file.key}><FontAwesomeIcon size="sm" icon={faEdit} /></Link>
           |
-          <a href="deleteFile" className="del" onClick={deleteFile}><FontAwesomeIcon size="sm" icon={faTrashAlt} /></a>
+          <a href="/" className="del" onClick={deleteFile}><FontAwesomeIcon size="sm" icon={faTrashAlt} /></a>
         </Col>
       </Row>
     </ListGroup.Item>

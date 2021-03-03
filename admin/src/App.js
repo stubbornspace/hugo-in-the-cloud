@@ -1,22 +1,33 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import {BrowserRouter, Switch,Route} from "react-router-dom";
 import { Navbar, Nav } from 'react-bootstrap';
+import Amplify, { Auth } from 'aws-amplify';
+import { withAuthenticator, AmplifyTheme } from 'aws-amplify-react';
+import awsConfig from './aws_config'
 
 import Dashboard from './Views/Dashboard';
 import Editor from './Views/Editor';
 
-/**
- * logout
- */
 
-function App() {
+Amplify.configure(awsConfig);
+Amplify.Logger.LOG_LEVEL = 'DEBUG';
+
+const loginTheme = {
+  sectionFooterSecondaryContent:{
+    ...AmplifyTheme.sectionFooterSecondaryContent,
+    display:"none"
+  }
+};
+
+const signOut = () =>{
+  Auth.signOut();
+  window.location.reload();
+}
+
+const App =() => {
 
   return (
-    <Router>
+    <BrowserRouter basename={'/admin'}>
       <div className="wrapper">
 
         <Navbar bg="light" expand="lg">
@@ -26,7 +37,7 @@ function App() {
           <Nav className="ml-auto">
           <Nav.Link href="/">home</Nav.Link>
             <Nav.Link href="/editor/<filename>.md">new</Nav.Link>
-            <Nav.Link href="/logout">logout</Nav.Link>
+            <Nav.Link href="/" onClick={signOut}>logout</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -34,24 +45,14 @@ function App() {
         <div className="main">
         <Switch>
           <Route exact path="/"><Dashboard /></Route>
-          <Route path="/logout"><Logout /></Route>
           <Route path={"/editor/:file"}><Editor /></Route>
         </Switch>
         </div>
 
       </div>
-    </Router>
+    </BrowserRouter>
 
   );
 }
 
-export default App;
-
-
-function Logout() {
-  return (
-    <div>
-      Logout
-    </div>
-  );
-}
+export default withAuthenticator(App, false, [], null, loginTheme);
